@@ -104,13 +104,51 @@ def series_card(list_deck,random_card):
 
             
 def user_remove(sel_list,user_deck,random_card):
+    gate = 0 
+    for a in sel_list:
+        p,s = a
+        p_r,s_r = random_card[-1]
+        if p==p_r and s==s_r:
+            if a in user_deck:
+                random_card.append(a)
+                user_deck.remove(a)
+                return True
     for a in sel_list:
         if a in user_deck:
             random_card.append(a)
             user_deck.remove(a)
-    draw_a_card(user_deck)
-    
-                
+            gate = 1
+    if gate == 1:
+        draw_a_card(user_deck)
+
+def deal_seal(user_deck,system_deck):
+    user_check = 0
+    sys_check = 0
+    for i in user_deck:
+        pip,suit = i
+        if (suit == "A"):
+            sys_check+=1
+        elif(suit=="K" or suit == "Q" or suit=="J"):
+            user_check+=10
+
+    for i in system_deck:
+        pip,suit = i
+        if (suit == "A"):
+            sys_check+=1
+        elif(suit=="K" or suit == "Q" or suit=="J"):
+            sys_check+=10
+    print("Your Total count {}" .format(user_check))
+    print("System's Total count {}" .format(sys_check))
+    if user_check < sys_check:
+        print("You are the winner bro")
+        deal = False
+    elif user_check > sys_check:
+        print(" You lost bro, System won")
+        deal = False
+    elif user_check == sys_check:
+        print("Equal points to both, who ever challenged has lost")
+        deal = False
+    return False
                 
         
 
@@ -144,24 +182,24 @@ print("LET THE GAME BEGIN\n")
 random_card = []
 random_card.append(deal_deck())
 
-for ran in random_card:
-    pip,suit = ran
-    print(suit + pip, end = " ")
-print("\n")
+#for ran in random_card:
+#    pip,suit = ran
+#    print(suit + pip, end = " ")
+#print("\n")
 user_deck.sort(reverse = True)
 system_deck.sort(reverse = True)
 
-print("User deck")    
-for i in user_deck:
-    pip,suit = i
-    print(suit + pip, end = " ")
-print("\n")
-print("system deck")
-for i in system_deck:
-    pip,suit = i
-    print(suit + pip, end = " ")
-print("\n")   
-print("\n")
+#print("User deck")    
+#for i in user_deck:
+#    pip,suit = i
+#    print(suit + pip, end = " ")
+#print("\n")
+#print("system deck")
+#for i in system_deck:
+#    pip,suit = i
+#    print(suit + pip, end = " ")
+#print("\n")   
+#print("\n")
 
 #selecting random card's pip and suit
 
@@ -170,6 +208,21 @@ print("\n")
 deal = True
 select = user_select()
 while deal:
+    print("OPEN CARD")
+    for ran in random_card:
+        pip,suit = ran
+        print(suit + pip, end = " ")
+    print("\n")
+    print("User deck")    
+    for i in user_deck:
+        pip,suit = i
+        print(suit + pip, end = " ")
+    print("\n")
+    print("system deck")
+    for i in system_deck:
+        pip,suit = i
+        print(suit + pip, end = " ")
+    print("\n")   
     if (select == 0):
         print("Its Your turn to go ahead first")
         for i in user_deck:
@@ -184,13 +237,17 @@ while deal:
         while axis:
             try:
                 ch = int(input("Select Index value and click enter press any character to exit: "))
+                for ran in random_card:
+                    pip,suit = ran
+                    print(suit + pip, end = " ")
+                print("\n")
                 if ch <=len(user_deck):
                     sel_list.append(user_deck[ch])
                 else:
                     print("Select some other value lesser than {}" .format(len(user_deck)))
             except:
                 print("Done with your selects")
-                print("Out length of selected cards {}" .format(len(sel_list)))
+                #print("Out length of selected cards {}" .format(len(sel_list)))
                 if(len(sel_list)!=0):
                     print("length of selected cards {}" .format(len(sel_list)))
                     user_remove(sel_list,user_deck,random_card)
@@ -213,21 +270,32 @@ while deal:
         select = 0
     else:
         select = 1
-    #deal = False
+    if len(user_deck)<=2:
+        print("DO you what to show?")
+        show = input("Y or N:")
+        if(show.upper()=="Y"):
+            deal_seal(user_deck,system_deck)
+    if len(system_deck)<=2:
+        for i in system_deck:
+            pip,suit = i
+            print(suit + pip, end =" ")
+            deal = deal_seal(user_deck,system_deck)
+            
+        
         
 
             
-for ran in random_card:
-    pip,suit = ran
-    print(suit + pip, end = " ")
-print("\n")
-
-for i in user_deck:
-    pip,suit = i
-    print(suit + pip, end = " ")
-print("\n")
-print("system deck")
-for i in system_deck:
-    pip,suit = i
-    print(suit + pip, end = " ")
-print("\n") 
+#for ran in random_card:
+#    pip,suit = ran
+#    print(suit + pip, end = " ")
+#print("\n")
+#
+#for i in user_deck:
+#    pip,suit = i
+#    print(suit + pip, end = " ")
+#print("\n")
+#print("system deck")
+#for i in system_deck:
+#    pip,suit = i
+#    print(suit + pip, end = " ")
+#print("\n") 
