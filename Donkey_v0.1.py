@@ -18,7 +18,7 @@ def deal_deck():
 def deal_check(player,deck_list):
     card = player
     deck_list.remove(card)
-    print("In deal_check {}".format(card))
+    #print("In deal_check {}".format(card))
     return card
 
 def user_select():
@@ -30,7 +30,7 @@ def put_card(deck_list,random_card):
     for d in deck_list:
         d_pip,d_suit = d
         ran_pip,ran_suit = random_card[-1]
-        print("match selected {} and {}".format(d_suit,ran_suit))
+        #print("match selected {} and {}".format(d_suit,ran_suit))
         if ran_suit == d_suit:
             #print("in put card")
             print("match selected {} \n {}".format(d_suit,ran_suit))
@@ -62,7 +62,7 @@ def drop_other_commons(system_deck,random_card):
         print("Match was found so that value was deleted")
         
     if flag == 0:
-        print("In max drop check")
+        #print("In max drop check")
         for d in system_deck:
             d_pip,d_suit = d
             if d_suit=="K" or d_suit == "Q" or d_suit == "J" or d_suit == "10" or d_suit == "9":
@@ -141,13 +141,13 @@ def deal_seal(user_deck,system_deck):
     print("System's Total count {}" .format(sys_check))
     if user_check < sys_check:
         print("You are the winner bro")
-        deal = False
+        return False
     elif user_check > sys_check:
         print(" You lost bro, System won")
-        deal = False
+        return False
     elif user_check == sys_check:
         print("Equal points to both, who ever challenged has lost")
-        deal = False
+        return False
     return False
                 
         
