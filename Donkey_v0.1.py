@@ -108,7 +108,7 @@ def user_remove(sel_list,user_deck,random_card):
     for a in sel_list:
         p,s = a
         p_r,s_r = random_card[-1]
-        if p==p_r and s==s_r:
+        if  s==s_r:
             if a in user_deck:
                 random_card.append(a)
                 user_deck.remove(a)
