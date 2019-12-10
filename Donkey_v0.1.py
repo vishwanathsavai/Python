@@ -32,7 +32,7 @@ def put_card(deck_list,random_card):
         ran_pip,ran_suit = random_card[-1]
         print("match selected {} and {}".format(d_suit,ran_suit))
         if ran_suit == d_suit:
-            print("in put card")
+            #print("in put card")
             print("match selected {} \n {}".format(d_suit,ran_suit))
             random_card.append(deal_check(d,deck_list))
             flag =1
@@ -54,7 +54,7 @@ def drop_other_commons(system_deck,random_card):
             for e in range(d,len(system_deck)):
                 e_pip,e_suit = system_deck[e]
                 if d != e and d_suit==e_suit and e_pip!=d_pip:
-                    print("In drop commons")
+                   # print("In drop commons")
                     random_card.append(deal_check(system_deck[e],system_deck))
                     random_card.append(deal_check(system_deck[d],system_deck))
                     flag = 1
@@ -103,7 +103,13 @@ def series_card(list_deck,random_card):
         print("\n")'''
 
             
-                
+def user_remove(sel_list,user_deck,random_card):
+    for a in sel_list:
+        if a in user_deck:
+            random_card.append(a)
+            user_deck.remove(a)
+    draw_a_card(user_deck)
+    
                 
                 
         
@@ -169,12 +175,12 @@ while deal:
         for i in user_deck:
             pip,suit = i
             print(suit + pip, end = " ")
-        print("Which Card from above set do you want to put")
+        print("\nWhich Card from above set do you want to put")
         #check if value put to random is common to randon if yes then done draw any from deck 
         #if no then draw a card # if possible check for the conditions if its satisfing or not.
         sel_list = []
         axis = True
-        print(len(user_deck))
+        #print(len(user_deck))
         while axis:
             try:
                 ch = int(input("Select Index value and click enter press any character to exit: "))
@@ -184,7 +190,13 @@ while deal:
                     print("Select some other value lesser than {}" .format(len(user_deck)))
             except:
                 print("Done with your selects")
-                axis = False
+                print("Out length of selected cards {}" .format(len(sel_list)))
+                if(len(sel_list)!=0):
+                    print("length of selected cards {}" .format(len(sel_list)))
+                    user_remove(sel_list,user_deck,random_card)
+                    axis = False
+                else:
+                    print("Select a card dumbo")
         print(sel_list)
             
     
@@ -196,12 +208,12 @@ while deal:
             print("common")
         else:
             drop_other_commons(system_deck,random_card)
-            (system_deck)
+            draw_a_card(system_deck)
     if(select == 1):
         select = 0
     else:
         select = 1
-    deal = False
+    #deal = False
         
 
             
